@@ -37,7 +37,9 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
         <property name="maxStatements" value="0" />
         <property name="minPoolSize" value="1" />
     </bean>
-
+ 
+ 
+ 
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="DataSource" />
@@ -46,12 +48,11 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
                 <value>net.javabeat.spring.model</value>
             </list>
         </property>-->
-        <!-- mapeo de clases a entidades  -->
+        <!-- mapeo de clases a entidades jvfacio  -->
         <property name="annotatedClasses">
             <list>
                 <value>com.facios.reda.spring.model.Customer</value>
                 <value>com.facios.reda.spring.model.Users</value>
-                <!--value>com.facios.reda.spring.model.Users</value-->
             </list>
         </property>
         <property name="hibernateProperties">
