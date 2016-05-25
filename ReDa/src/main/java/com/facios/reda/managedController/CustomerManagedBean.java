@@ -8,6 +8,7 @@ package com.facios.reda.managedController;
 
 import com.facios.reda.spring.model.Customer;
 import com.facios.reda.spring.service.CustomerService;
+import com.facios.reda.spring.service.impl.SurveyService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,10 @@ public class CustomerManagedBean implements Serializable {
     //Spring Customer Service is injected...
     @ManagedProperty(value="#{CustomerService}")
     CustomerService customerService;
+    
+    //Spring surveyService Service is injected...
+    @ManagedProperty(value="#{SurveyService}")
+    SurveyService surveyService;
 
     List<Customer> customerList;
 
@@ -38,6 +43,16 @@ public class CustomerManagedBean implements Serializable {
     private String name;
     private String surname;
 
+    public SurveyService getSurveyService() {
+        return surveyService;
+    }
+
+    public void setSurveyService(SurveyService surveyService) {
+        this.surveyService = surveyService;
+    }
+
+    
+    
     /**
      * Add Customer
      *
@@ -74,6 +89,12 @@ public class CustomerManagedBean implements Serializable {
      * @return List - Customer List
      */
     public List<Customer> getCustomerList() {
+        /**
+         * mandar llamar la invoacion a surveymokey 
+         * 
+         * */
+        surveyService.getSurveys();
+        
         customerList = new ArrayList<Customer>();
         customerList.addAll(getCustomerService().getCustomers());
         return customerList;
