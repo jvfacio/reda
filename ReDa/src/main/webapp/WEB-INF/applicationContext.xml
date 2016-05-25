@@ -46,6 +46,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
                 <value>net.javabeat.spring.model</value>
             </list>
         </property>-->
+        <!-- mapeo de clases a entidades-->
         <property name="annotatedClasses">
             <list>
                 <value>com.facios.reda.spring.model.Customer</value>
