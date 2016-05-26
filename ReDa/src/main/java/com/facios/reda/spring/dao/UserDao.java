@@ -6,8 +6,10 @@
 package com.facios.reda.spring.dao;
 
 
-import com.facios.reda.spring.model.Users;
+import com.facios.reda.managedController.CustomerManagedBean;
+import com.facios.reda.spring.model.User;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDao {
+    private static final Logger log = Logger.getLogger(UserDao.class);
+    
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -39,13 +43,25 @@ public class UserDao {
         this.sessionFactory = sessionFactory;
     }
     
-    public Users getUsersByUserName(String uname){
+    public User getUsersByUserName(String uname){
         
         List list = getSessionFactory().getCurrentSession()
                                             .createQuery("from Users where uname = ? ")
                                             .setParameter(0, uname).list();
         
-        return (Users)list.get(0);
+        return (User)list.get(0);
+    }
+    
+    public User validateUser(String uname, String psw){
+        log.debug("Validando Usuario " + uname);
+        List list = getSessionFactory().getCurrentSession()
+                                            .createQuery("from User where username = ? and password = ?")
+                                            .setParameter(0, uname).setParameter(1, psw).list();
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return (User)list.get(0);
+        }
     }
     
 }

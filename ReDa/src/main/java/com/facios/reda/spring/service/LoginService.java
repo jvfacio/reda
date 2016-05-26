@@ -6,7 +6,7 @@
 package com.facios.reda.spring.service;
 
 import com.facios.reda.spring.dao.UserDao;
-import com.facios.reda.spring.model.Users;
+import com.facios.reda.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +33,9 @@ public class LoginService {
     
     
     public boolean validate (String uname, String psw){
-        Users user = userDao.getUsersByUserName(uname);
-        /**
-         * jvfacio 
-         * cambiar la implementacion del metodo para validar
-         */
+        User user = userDao.validateUser(uname,psw);
         boolean res = false;
-        if (user.getPassword().equals(psw)) {
+        if (user != null) {
             res = true;
         } 
         

@@ -7,23 +7,18 @@ package com.facios.reda.spring.service.impl;
 
 
 
+import com.facios.reda.managedController.CustomerManagedBean;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-import javax.xml.ws.Response;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.glassfish.jersey.client.ClientConfig;
+import org.apache.log4j.Logger;
+
 
 //import org.glassfish.jersey.client.ClientConfig;
 
@@ -37,12 +32,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("SurveyService")
 @Transactional(readOnly = true)
 public class SurveyService {
-    
+    private static final Logger log = Logger.getLogger(SurveyService.class);
     public static String API_KEY = "x24ntnw7nyepnrx8m3rgveqf";
     public static String TOKEN = "3tVas2LwmdfVycD6JONXt0Y4XCtSxX1AJy8GW376Ceoj.jRWRsHoMT5tJiGFpW457Bb6-frGstgxCR1SXJzUHA3WCtMcEnlg73z4HwsXJguJlAcqbphPXF9ploZSPrYLTGwOmd8vcNOlWAJ1gq.D8eA5aOl202jW9ojmZ-QnQZv3d90LLghn5BJfr3pGDHSV";
     
     
     public void getSurveys() {
+        log.debug("Get the surveys");
         try {
 			
 			// create HTTP Client
@@ -83,37 +79,7 @@ public class SurveyService {
             
             
             
-    public void getSurveysJersey() {
     
-        ClientConfig config = new ClientConfig();
-        Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI());
-        
-       // target.request().accept(MediaType.APPLICATION_JSON_TYPE).header(HttpHeaders.AUTHORIZATION, "Bearer " + TOKEN);
-        
-       
-//       target.request().header(HttpHeaders.AUTHORIZATION, "bearer " + TOKEN)
-//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
-       
-       String response = target.request().header(HttpHeaders.AUTHORIZATION, "bearer " + TOKEN)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON).get(Response.class).toString();
-//       
-//        String plainAnswer = 
-//            target.path("rest").path("hello").request().accept(MediaType.TEXT_PLAIN).get(String.class);
-//        String xmlAnswer = 
-//            target.path("rest").path("hello").request().accept(MediaType.TEXT_XML).get(String.class);
-//        
-//        String htmlAnswer= 
-//            target.path("rest").path("hello").request().accept(MediaType.TEXT_HTML).get(String.class);
-
-        System.out.println(response);
-//        System.out.println(plainAnswer);
-//        System.out.println(xmlAnswer);
-//        System.out.println(htmlAnswer);  
-    }
     
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri("https://api.surveymonkey.net/v3/surveys?api_key=" + API_KEY).build();
-    }
     
 }

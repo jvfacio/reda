@@ -5,14 +5,14 @@
  */
 package com.facios.reda.managedController;
 
-import com.facios.reda.spring.service.CustomerService;
+
 import com.facios.reda.spring.service.LoginService;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +21,14 @@ import javax.servlet.http.HttpSession;
  * @author jvfacio
  */
 @ManagedBean(name="loginMB")
+@SessionScoped
 public class Login implements Serializable {
+    
+    private static final long serialVersionUID = 1094801825228386363L;
+    
+    private String pwd;
+    private String msg;
+    private String user;
     
     //Spring Customer Service is injected...
     @ManagedProperty(value="#{LoginService}")
@@ -35,12 +42,9 @@ public class Login implements Serializable {
         this.loginService = loginService;
     }
     
-    
-    private static final long serialVersionUID = 1094801825228386363L;
+
      
-    private String pwd;
-    private String msg;
-    private String user;
+   
  
     public String getPwd() {
         return pwd;

@@ -6,15 +6,22 @@
 package com.facios.reda.managedController;
 
 
+import com.facios.reda.config.LoadConfiguration;
+import com.facios.reda.config.dto.ServiceDefinition;
 import com.facios.reda.spring.model.Customer;
 import com.facios.reda.spring.service.CustomerService;
 import com.facios.reda.spring.service.impl.SurveyService;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.ws.rs.core.MediaType;
+import javax.xml.ws.Response;
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -25,6 +32,7 @@ import org.springframework.dao.DataAccessException;
 @RequestScoped
 public class CustomerManagedBean implements Serializable {
     
+    private static final Logger log = Logger.getLogger(CustomerManagedBean.class);
     private static final long serialVersionUID = 1L;
     private static final String SUCCESS = "Success";
     private static final String ERROR   = "error";
@@ -89,10 +97,8 @@ public class CustomerManagedBean implements Serializable {
      * @return List - Customer List
      */
     public List<Customer> getCustomerList() {
-        /**
-         * mandar llamar la invoacion a surveymokey 
-         * 
-         * */
+        log.debug("get the customer List");
+        
         surveyService.getSurveys();
         
         customerList = new ArrayList<Customer>();

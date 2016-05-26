@@ -34,24 +34,24 @@ public class LoadConfiguration {
     
     private static LoadConfiguration configurator;
 	
-	private static String path;
-	private static Document document;
+    private static String path;
+    private static Document document;
 	
 	static {
 		          Properties prop = new Properties();
 		try {
-			prop.load(LoadConfiguration.class.getResourceAsStream("/onix.properties"));
-			path = prop.getProperty("onixConfigPath");
+			prop.load(LoadConfiguration.class.getResourceAsStream("/reda.properties"));
+			path = prop.getProperty("redaConfigPath");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static LoadConfiguration getConfigurador() {
-		if (configurator == null) {
-			configurator = new LoadConfiguration();
-		}
-		return configurator;
+            if (configurator == null) {
+                    configurator = new LoadConfiguration();
+            }
+            return configurator;
 	}
 	 
 	private LoadConfiguration() {
